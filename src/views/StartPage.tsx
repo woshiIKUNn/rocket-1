@@ -13,11 +13,11 @@ export const StartPage = defineComponent({
     return () => (
       <MainLayout>{
         {
-          title: () => '山竹记账',
+          title: () => '火箭记账',
           icon: () => <OverlayIcon />,
           default: () => <>
             <Center class={s.pig_wrapper}>
-              <Icon name="pig" class={s.pig} />
+              <Icon name="rocket2" class={s.pig} />
             </Center>
             <div class={s.button_wrapper}>
               <RouterLink to="/items/create">

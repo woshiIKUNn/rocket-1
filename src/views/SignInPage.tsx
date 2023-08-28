@@ -71,8 +71,8 @@ export const SignInPage = defineComponent({
           default: () => (
             <div class={s.wrapper}>
               <div class={s.logo}>
-                <Icon class={s.icon} name="mangosteen" />
-                <h1 class={s.appName}>山竹记账</h1>
+                <Icon class={s.icon} name="rocket2" />
+                <h1 class={s.appName}>火箭记账</h1>
               </div>
               <Form onSubmit={onSubmit}>
                 <FormItem label="邮箱地址" type="text"
