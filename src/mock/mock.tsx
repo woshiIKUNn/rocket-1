@@ -31,6 +31,6 @@ export const mockTagIndex: Mock = (config) => {
   } else {
     return [200, { resources: createTag(20) }]
   }
-
+ 
 }
 
