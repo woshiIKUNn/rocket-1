@@ -8,6 +8,7 @@ import { useTags } from '../../shared/useTags';
 import { InputPad } from './InputPad';
 import s from './ItemCreate.module.scss';
 import { Tags } from './Tags';
+import { BackIcon } from '../../shared/BackIcon';
 export const ItemCreate = defineComponent({
   props: {
     name: {
@@ -29,7 +30,7 @@ export const ItemCreate = defineComponent({
     return () => (
       <MainLayout class={s.layout}>{{
         title: () => '记一笔',
-        icon: () => <Icon name="left" class={s.navIcon} />,
+        icon: () => <BackIcon />,
         default: () => <>
           <div class={s.wrapper}>
             <Tabs v-model:selected={refKind.value} class={s.tabs}>
