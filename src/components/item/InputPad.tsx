@@ -54,7 +54,7 @@ export const InputPad = defineComponent({
       {
         text: '提交',
         onClick: () => {
-          context.emit('update:amount', parseFloat(refAmount.value) * 100)
+          context.emit('update:amount', parseFloat(refAmount.value) * 100) // 转换为number
           props.onSubmit?.()
         }
       },
