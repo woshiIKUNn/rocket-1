@@ -57,7 +57,9 @@ export const SignInPage = defineComponent({
 
       disabled()
       const response = await http
-        .post('/validation_codes', { email: formData.email })
+        .post('/validation_codes', { email: formData.email } , {
+          _autoLoading: true
+        })
         .catch(onError)
         .finally(enable)
       // 成功
