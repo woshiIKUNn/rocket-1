@@ -14,7 +14,6 @@ import { ThirdActions } from "../components/welcome/ThirdActions";
 import { http } from "../shared/Http";
 import { ItemPage } from "../views/ItemPage";
 import { SignInPage } from "../views/SignInPage";
-import { StartPage } from "../views/StartPage";
 import { StatisticsPage } from "../views/StatisticsPage";
 import { TagPage } from "../views/TagPage";
 import { Welcome } from "../views/Welcome";
@@ -36,7 +35,7 @@ export const routes: RouteRecordRaw[] = [
       { path: '4', name: "Welcome4", components: { main: Forth, footer: ForthActions }, },
     ]
   },
-  { path: '/start', component: StartPage },
+
   {
     path: '/items', component: ItemPage,
     children: [

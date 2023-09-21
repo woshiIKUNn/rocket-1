@@ -94,7 +94,7 @@ export const ItemSummary = defineComponent({
                   </div>
                   <div class={s.text}>
                     <div class={s.tagAndAmount}>
-                      <span class={s.tag}>{item.tags_id[0]}</span>
+                      <span class={s.tag}>{item.tag_ids[0]}</span>
                       <span class={s.amount}>￥<Money value={item.amount}/></span>
                     </div>
                     <div class={s.time}><Datetime value={item.happen_at}/></div>
