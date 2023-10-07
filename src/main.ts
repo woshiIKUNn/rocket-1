@@ -6,7 +6,7 @@ import { history } from './shared/history';
 import '@svgstore';
 
 import { createPinia } from 'pinia';
-import { useMeStore } from './store/useMeStore';
+import { useMeStore } from './stores/useMeStore';
 
 const router = createRouter({ history, routes })
 const pinia = createPinia()

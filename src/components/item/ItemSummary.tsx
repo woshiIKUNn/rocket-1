@@ -1,76 +1,78 @@
-import { defineComponent, onMounted, PropType, reactive, ref, watch } from 'vue'
+import { defineComponent, onMounted, onUnmounted, PropType, reactive, ref, watch } from 'vue'
+import { RouterLink } from 'vue-router'
+import { useAfterMe } from '../../hooks/useAfterMe'
 import { Button } from '../../shared/Button'
+import { Center } from '../../shared/Center'
 import { Datetime } from '../../shared/Datetime'
 import { FloatButton } from '../../shared/FloatButton'
 import { http } from '../../shared/Http'
+import { Icon } from '../../shared/Icon'
 import { Money } from '../../shared/Money'
+import { useItemStore } from '../../stores/useItemStore'
+
 import s from './ItemSummary.module.scss'
-import { Center } from '../../shared/Center'
-import { Icon } from '../../shared/Icon';
-import { RouterLink } from 'vue-router'
 export const ItemSummary = defineComponent({
   props: {
     startDate: {
       type: String as PropType<string>,
-      required: false,
+      required: false
     },
     endDate: {
       type: String as PropType<string>,
-      required: false,
-    },
+      required: false
+    }
   },
   setup: (props, context) => {
-    const items = ref<Item[]>([])
-    const hasMore = ref(false)
-    const page = ref(0)
-    const fetchItems = async () => {
-      if(!props.startDate || !props.endDate){ return }
-      const response = await http.get<Resources<Item>>('/items', {
-        happen_after: props.startDate,
-        happen_before: props.endDate,
-        page: page.value + 1,
-      }, {
-        _mock: 'itemIndex',
-        _autoLoading: true,
-      })
-      const { resources, pager } = response.data
-      items.value?.push(...resources)
-      hasMore.value = (pager.page - 1) * pager.per_page + resources.length < pager.count
-      page.value += 1
+    if (!props.startDate || !props.endDate) {
+      return () => <div>请先选择时间范围</div>
     }
-    onMounted(fetchItems)
+    const itemStore = useItemStore(['items', props.startDate, props.endDate])
+    useAfterMe(() => itemStore.fetchItems(props.startDate, props.endDate))
 
-    watch(()=>[props.startDate,props.endDate], ()=>{
-      items.value = []
-      hasMore.value = false
-      page.value = 0
-      fetchItems()
-    })
+    watch(
+      () => [props.startDate, props.endDate],
+      () => {
+        itemStore.$reset()
+        itemStore.fetchItems()
+      }
+    )
 
     const itemsBalance = reactive({
-      expenses: 0, income: 0, balance: 0
+      expenses: 0,
+      income: 0,
+      balance: 0
     })
-    const fetchItemsBalance =async ()=>{
-      if(!props.startDate || !props.endDate){ return }
-      const response = await http.get('/items/balance', {
-        happen_after: props.startDate,
-        happen_before: props.endDate,
-        page: page.value + 1,
-      }, {
-        _mock: 'itemIndexBalance',
-      })
+    const fetchItemsBalance = async () => {
+      if (!props.startDate || !props.endDate) {
+        return
+      }
+      const response = await http.get(
+        '/items/balance',
+        {
+          happen_after: props.startDate,
+          happen_before: props.endDate
+        },
+        {
+          _mock: 'itemIndexBalance'
+        }
+      )
       Object.assign(itemsBalance, response.data)
     }
-    onMounted(fetchItemsBalance)
-    watch(()=>[props.startDate,props.endDate], ()=>{
-      Object.assign(itemsBalance, {
-        expenses: 0, income: 0, balance: 0
-      })
-      fetchItemsBalance()
-    })
+    useAfterMe(fetchItemsBalance)
+    watch(
+      () => [props.startDate, props.endDate],
+      () => {
+        Object.assign(itemsBalance, {
+          expenses: 0,
+          income: 0,
+          balance: 0
+        })
+        fetchItemsBalance()
+      }
+    )
     return () => (
       <div class={s.wrapper}>
-        {(items.value && items.value.length > 0 ) ? (
+        {itemStore.items && itemStore.items.length > 0 ? (
           <>
             <ul class={s.total}>
               <li>
@@ -87,32 +89,37 @@ export const ItemSummary = defineComponent({
               </li>
             </ul>
             <ol class={s.list}>
-              {items.value.map((item) => (
+              {itemStore.items.map((item) => (
                 <li>
                   <div class={s.sign}>
-                    <span>{item.tags![0].sign}</span>
+                    <span>{item.tags && item.tags.length > 0 ? item.tags[0].sign : '💰'}</span>
                   </div>
                   <div class={s.text}>
                     <div class={s.tagAndAmount}>
-                      <span class={s.tag}>{item.tag_ids[0]}</span>
-                      <span class={s.amount}>￥<Money value={item.amount}/></span>
+                      <span class={s.tag}>{item.tags && item.tags.length > 0 ? item.tags[0].name : '未分类'}</span>
+                      <span class={s.amount}>
+                        ￥<Money value={item.amount} />
+                      </span>
                     </div>
-                    <div class={s.time}><Datetime value={item.happen_at}/></div>
+                    <div class={s.time}>
+                      <Datetime value={item.happen_at} />
+                    </div>
                   </div>
                 </li>
               ))}
             </ol>
             <div class={s.more}>
-              {hasMore.value ?
-                <Button onClick={fetchItems}>加载更多</Button> :
+              {itemStore.hasMore ? (
+                <Button onClick={() => itemStore.fetchNextPage(props.startDate, props.endDate)}>加载更多</Button>
+              ) : (
                 <span>没有更多</span>
-              }
+              )}
             </div>
           </>
         ) : (
           <>
             <Center class={s.pig_wrapper}>
-              <Icon name="rocket2" class={s.pig} />
+              <Icon name="pig" class={s.pig} />
             </Center>
             <div class={s.button_wrapper}>
               <RouterLink to="/items/create">
@@ -122,9 +129,9 @@ export const ItemSummary = defineComponent({
           </>
         )}
         <RouterLink to="/items/create">
-          <FloatButton iconName='add' />
+          <FloatButton iconName="add" />
         </RouterLink>
       </div>
     )
-  },
+  }
 })

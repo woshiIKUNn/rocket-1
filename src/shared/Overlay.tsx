@@ -4,7 +4,7 @@ import { Icon } from './Icon';
 import s from './Overlay.module.scss';
 
 import { Dialog } from 'vant';
-import { useMeStore } from '../store/useMeStore';
+import { useMeStore } from '../stores/useMeStore';
 export const Overlay = defineComponent({
   props: {
     onClose: {
