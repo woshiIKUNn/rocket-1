@@ -4,7 +4,7 @@ import s from './SkipFeatures.module.scss';
 export const SkipFeatures = defineComponent({
   setup: (props, context) => {
     const onClick = () => {
-      localStorage.setItem('skipFeatures', 'yes')
+      localStorage.setItem('skipFeatures', 'no')
     }
     return () => (
       <span onClick={onClick}>
