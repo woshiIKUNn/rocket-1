@@ -12,7 +12,7 @@ export const Overlay = defineComponent({
     },
       
   },
-  setup: (props, context) => {
+  setup: (props) => {
     const meStore = useMeStore()
     const close = () => {
       props.onClose?.()
@@ -29,6 +29,7 @@ export const Overlay = defineComponent({
         message: '你真的要退出登录吗？',
       })
       localStorage.removeItem('jwt')
+      window.location.reload()
     }
     return () => <>
       <div class={s.mask} onClick={close}></div>
@@ -51,7 +52,13 @@ export const Overlay = defineComponent({
 
         <nav>
           <ul class={s.action_list}>
-            <li>
+            <li onClick={close}>
+              <RouterLink to="/items" class={s.action} >
+                <Icon name='pig' class={s.icon} />
+                  <span>记账</span>
+              </RouterLink>
+            </li>
+            <li onClick={close}>
               <RouterLink to="/statistics" class={s.action}>
                 <Icon name="charts" class={s.icon} />
                 <span>统计图表</span>
@@ -78,7 +85,7 @@ export const Overlay = defineComponent({
 
 
 export const OverlayIcon = defineComponent({
-  setup: (props, context) => {
+  setup: () => {
     const refOverlayVisible = ref(false)
     const onClickMenu = () => {
       refOverlayVisible.value = !refOverlayVisible.value

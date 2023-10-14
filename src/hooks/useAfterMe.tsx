@@ -3,13 +3,7 @@ import { useMeStore } from '../stores/useMeStore'
 
 export const useAfterMe = (fn: () => void) => {
   const meStore = useMeStore()
-  onMounted(async () => {
-    try{
-      await meStore.mePromise
-    }catch(error){
-      return
-    }
-    
-    fn()
+  onMounted(() => {
+    meStore.mePromise!.then(fn, ()=> undefined)
   })
 }
