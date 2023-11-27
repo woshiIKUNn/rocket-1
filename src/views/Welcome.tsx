@@ -2,7 +2,8 @@ import { defineComponent, ref, Transition, VNode, watchEffect } from 'vue';
 import { RouteLocationNormalizedLoaded, RouterView, useRoute, useRouter } from 'vue-router';
 import { useSwipe } from '../hooks/useSwipe';
 import { throttle } from '../shared/throttle';
-import s from './Welcome.module.scss'
+import s from './Welcome.module.scss';
+import { Icon } from '../shared/Icon';
 
 const pushMap: Record<string, string> = {
   'Welcome1': '/welcome/2',
@@ -25,11 +26,10 @@ export const Welcome = defineComponent({
         replace()
       }
     })
-    return () => <div class={s.wrapper}>
+    return () => 
+    <div class={s.wrapper}>
       <header>
-        <svg>
-          <use xlinkHref='#mangosteen'></use>
-        </svg>
+        <Icon name='rocket2'></Icon>
         <h1>火箭记账</h1>
       </header>
       <main class={s.main} ref={main}>

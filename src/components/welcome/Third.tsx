@@ -5,7 +5,7 @@ export const Third = () => {
       <svg>
         <use xlinkHref='#chart'></use>
       </svg>
-      <h2>每日提醒<br />不遗漏每一笔账单</h2>
+      <h2>每日提醒<br />不遗漏每一笔账单<br />（广告3）</h2>
     </div>
   )
 }
