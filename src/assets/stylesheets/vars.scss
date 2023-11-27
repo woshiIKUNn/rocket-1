@@ -1,5 +1,5 @@
 :root {
-  --amount-text: #9cebaf;
+  --amount-text: rgb(238, 51, 51);
   --app-name-text: rgb(5, 104, 35);
   --bg: rgb(87, 84, 84);
   --button-bg-danger: #E10505;
@@ -11,7 +11,7 @@
   --button-text: white;
   --date-text: #999999;
   --dialog-header-text: white;
-  --emoji-nav-text-selected: #333;
+  --emoji-nav-text-selected: #fffdfd;
   --emoji-nav-text: #999;
   --error-color: #E10505;
   --float-button-bg: var(--button-bg);
@@ -19,16 +19,16 @@
   --input-border-color: #595664;
   --input-min-height: 48px;
   --input-radius: var(--button-radius);
-  --input-shadow: rgba(0,0,0,0.25);
+  --input-shadow: rgba(65, 58, 58, 0.25);
   --list-amount-text: var(--amount-text);
-  --list-tag-text: #333;
+  --list-tag-text: rgb(51, 179, 47);
   --list-time-text: var(--date-text);
   --main: #343435;
   --navbar-bg-end: var(--welcome-bg-end);
   --navbar-bg-start: var(--welcome-bg-start);
   --navbar-text: white;
-  --number-button-bg-important: rgb(55, 58, 82);
-  --number-button-bg: white;
+  --number-button-bg-important: rgb(43, 112, 59);
+  --number-button-bg: rgb(49, 48, 48);
   --number-button-text-important: white;
   --overlay-bg: rgb(43, 41, 41);
   --overlay-mask-bg: rgba(0, 0, 0, 0.5);
