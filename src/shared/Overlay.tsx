@@ -1,3 +1,4 @@
+
 import { defineComponent, onMounted, PropType, ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import { Icon } from './Icon';
@@ -5,12 +6,12 @@ import s from './Overlay.module.scss';
 
 import { Dialog } from 'vant';
 import { useMeStore } from '../stores/useMeStore';
+// 侧边浮层
 export const Overlay = defineComponent({
   props: {
     onClose: {
       type: Function as PropType<() => void>,
-    },
-      
+    },   
   },
   setup: (props) => {
     const meStore = useMeStore()
@@ -52,6 +53,7 @@ export const Overlay = defineComponent({
 
         <nav>
           <ul class={s.action_list}>
+           {/* 点击旁边空白关闭 */}
             <li onClick={close}>
               <RouterLink to="/items" class={s.action} >
                 <Icon name='pig' class={s.icon} />
@@ -83,9 +85,10 @@ export const Overlay = defineComponent({
   }
 })
 
-
+// 点击菜单按钮触发事件
 export const OverlayIcon = defineComponent({
   setup: () => {
+    // 是否展示 默认值false
     const refOverlayVisible = ref(false)
     const onClickMenu = () => {
       refOverlayVisible.value = !refOverlayVisible.value

@@ -1,10 +1,11 @@
+// 广告页面
 import { defineComponent, ref, Transition, VNode, watchEffect } from 'vue';
 import { RouteLocationNormalizedLoaded, RouterView, useRoute, useRouter } from 'vue-router';
 import { useSwipe } from '../hooks/useSwipe';
 import { throttle } from '../shared/throttle';
 import s from './Welcome.module.scss';
 import { Icon } from '../shared/Icon';
-
+// 更改pushmap类型
 const pushMap: Record<string, string> = {
   'Welcome1': '/welcome/2',
   'Welcome2': '/welcome/3',
@@ -15,13 +16,16 @@ export const Welcome = defineComponent({
   setup: (props, context) => {
     type Y = {Component: VNode, route: RouteLocationNormalizedLoaded}
     const main = ref<HTMLElement>()
-    const { direction, swiping } = useSwipe(main, { beforeStart: e => e.preventDefault() })
+    // e.preventDefault阻止浏览器默认滑动
+    const { direction, swiping } = useSwipe(main, { beforeStart: e => e.preventDefault() }) 
     const route = useRoute()
     const router = useRouter()
+    // 节流 每500ms刷新一次 防止多次触发滑动事件
     const replace = throttle(() => {
       const name = (route.name || 'Welcome1').toString()
       router.replace(pushMap[name])
     }, 500)
+    // watchEffect当前作用域发生变化就执行
     watchEffect(() => {
       if (swiping.value && direction.value === 'left') {
         replace()

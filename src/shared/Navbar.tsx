@@ -1,3 +1,4 @@
+// 顶部导航栏
 import { defineComponent, PropType } from 'vue';
 import s from './Navbar.module.scss';
 export const Navbar = defineComponent({

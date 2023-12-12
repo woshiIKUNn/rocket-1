@@ -3,9 +3,9 @@
   justify-content: center;
   align-items: center;
   &.horizontal {
-    flex-direction: row;
+    flex-direction: row; // 横
   }
   &.vertical {
-    flex-direction: column;
+    flex-direction: column; // 竖
   }
 }

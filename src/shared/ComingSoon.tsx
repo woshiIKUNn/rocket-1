@@ -1,3 +1,4 @@
+// 敬请期待页面且带返回按钮
 import { defineComponent, PropType } from 'vue'
 import { Center } from './Center'
 import s from './ComingSoon.module.scss'

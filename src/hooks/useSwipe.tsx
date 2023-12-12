@@ -1,3 +1,4 @@
+// 支持滑动事件
 import { computed, onMounted, onUnmounted, ref, Ref } from "vue";
 
 type Point = {
@@ -17,6 +18,7 @@ export const useSwipe = (element: Ref<HTMLElement | undefined>, options?: Option
   const start = ref<Point>()
   const end = ref<Point>()
   const swiping = ref(false)
+// 移动距离
   const distance = computed(() => {
     if (!start.value || !end.value) { return null }
     return {
@@ -24,9 +26,11 @@ export const useSwipe = (element: Ref<HTMLElement | undefined>, options?: Option
       y: end.value.y - start.value.y,
     }
   })
+  // 记录移动方向
   const direction = computed(() => {
     if (!distance.value) { return '' }
     const { x, y } = distance.value
+    // 看x y绝对值 决定移动方向
     if (Math.abs(x) > Math.abs(y)) {
       return x > 0 ? 'right' : 'left'
     } else {
@@ -50,12 +54,12 @@ export const useSwipe = (element: Ref<HTMLElement | undefined>, options?: Option
     swiping.value = false
     options?.afterEnd?.(e)
   }
-
+// 监听触摸事件 onMounted默认挂到当前组件 
   onMounted(() => {
     if (!element.value) { return }
-    element.value.addEventListener('touchstart', onStart)
-    element.value.addEventListener('touchmove', onMove)
-    element.value.addEventListener('touchend', onEnd)
+    element.value.addEventListener('touchstart', onStart) //手指接触
+    element.value.addEventListener('touchmove', onMove) //手指移动
+    element.value.addEventListener('touchend', onEnd) //手指停止
   })
   onUnmounted(() => {
     if (!element.value) { return }

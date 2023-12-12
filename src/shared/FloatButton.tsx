@@ -1,3 +1,4 @@
+// 封装浮动按钮 
 import { defineComponent, PropType } from 'vue';
 import { Icon, IconName } from './Icon';
 import s from './FloatButton.module.scss';

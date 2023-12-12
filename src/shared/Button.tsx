@@ -1,3 +1,4 @@
+// 封装button按钮
 import { computed, defineComponent, PropType, ref } from 'vue';
 import s from './Button.module.scss';
 

@@ -1,4 +1,4 @@
-import { defineComponent, defineProps, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import s from './Icon.module.scss';
 
 export type IconName = 'add' | 'chart' | 'clock' | 'cloud' |
@@ -8,7 +8,7 @@ export const Icon = defineComponent({
   props: {
     name: {
       type: String as PropType<IconName>,
-      required: true,
+      required: true, // 必须传name
     },
     onClick: {
       type: Function as PropType<(e: MouseEvent) => void>

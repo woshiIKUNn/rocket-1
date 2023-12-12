@@ -1,5 +1,6 @@
 import s from './welcome.module.scss';
 import { FunctionalComponent } from 'vue';
+// FunctionalComponent纯函数 无状态 无生命周期
 export const First: FunctionalComponent = () => {
   return (
     <div class={s.card}>
