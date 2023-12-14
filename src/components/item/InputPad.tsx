@@ -1,8 +1,9 @@
+// 九宫格键盘组件
 import { defineComponent, PropType, ref } from 'vue';
 import { Icon } from '../../shared/Icon';
 import { Time } from '../../shared/time';
 import s from './InputPad.module.scss';
-import { DatetimePicker, NumberKeyboard, Popup } from 'vant';
+import { DatetimePicker, Popup } from 'vant';
 export const InputPad = defineComponent({
   props: {
     happenAt: String,
@@ -38,6 +39,7 @@ export const InputPad = defineComponent({
       }
       refAmount.value += n.toString()
     }
+    // 键盘按钮
     const buttons = [
       { text: '1', onClick: () => { appendText(1) } },
       { text: '2', onClick: () => { appendText(2) } },
@@ -84,6 +86,7 @@ export const InputPad = defineComponent({
         <span class={s.amount}>{refAmount.value}</span>
       </div>
       <div class={s.buttons}>
+      {/* 遍历所有键盘按钮 */}
         {buttons.map(button =>
           <button onClick={button.onClick}>{button.text}</button>
         )}

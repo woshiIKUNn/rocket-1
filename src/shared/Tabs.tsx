@@ -21,7 +21,7 @@ export const Tabs = defineComponent({
       if (!tabs) return () => null
       for (let i = 0; i < tabs.length; i++) {
         if (tabs[i].type !== Tab) {
-          throw new Error('<Tabs> only accepts <Tab> as children')
+          throw new Error('<Tabs> only accepts <Tab> as children') // <Tabs>确认子组件传的是否是<Tab>
         }
       }
       const cp = props.classPrefix
@@ -29,10 +29,10 @@ export const Tabs = defineComponent({
         <ol class={[s.tabs_nav, cp + '_tabs_nav']}>
           {tabs.map(item =>
             <li class={[
-              item.props?.value === props.selected ? [s.selected, cp + '_selected'] : '',
+              item.props?.value === props.selected ? [s.selected, cp + '_selected'] : '', // 如果选中添加选中的样式
               cp + '_tabs_nav_item'
             ]}
-              onClick={() => context.emit('update:selected', item.props?.value)}
+              onClick={() => context.emit('update:selected', item.props?.value)} //添加监听事件是否选中
             >
               {item.props?.name}
             </li>)}

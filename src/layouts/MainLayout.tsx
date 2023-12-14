@@ -1,3 +1,4 @@
+// 主要的layout （整个页面上面部分）
 import { defineComponent, PropType } from 'vue';
 import { Navbar } from '../shared/Navbar';
 import s from './MainLayout.module.scss';
